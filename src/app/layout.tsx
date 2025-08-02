@@ -22,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <Navbar />
             <div className="bg-gradient-to-b from -[#fff6f7] dark:from-secondary dark:to-black to-white">
@@ -32,7 +31,6 @@ export default function RootLayout({
             </div>
             <Footer />
           </AuthProvider>
-        </ThemeProvider>
         {/* <Script src="/liquid-glass.js" /> */}
       </body>
     </html>
