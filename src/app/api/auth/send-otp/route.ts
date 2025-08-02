@@ -38,8 +38,8 @@ export async function POST(req: Request) {
       { otp: code, verified: false, createdAt: new Date() },
       { upsert: true, new: true }
     );
-    console.log("OTP generated for:", cleanEmail, "Code:", code);
-    // await sendOTPEmail(cleanEmail, code); // Uncomment when email is configured
+    await sendOTPEmail(cleanEmail, code); // Uncomment when email is configured
+    // console.log("OTP generated for:", cleanEmail, "Code:", code);
     return NextResponse.json({ message: "OTP sent successfully" });
   } catch (error: any) {
     console.error("Send OTP API error:", error);
