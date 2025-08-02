@@ -7,7 +7,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import mongoose from "mongoose";
 
-
 export async function POST(req: Request) {
   try {
     await connectDB();
@@ -22,13 +21,6 @@ export async function POST(req: Request) {
 
   // Check if user is authenticated
   const session = await getServerSession(authOptions);
-  console.log("📋Session data:", {
-    hasSession: !!session,
-    userId: session?.user?.id,
-    userEmail: session?.user?.email,
-    userName: session?.user?.name,
-    userPhone: session?.user?.phone,
-  });
 
   // if there is no login
   if (!session?.user?.id) {
@@ -69,16 +61,13 @@ export async function POST(req: Request) {
       district: data.district,
       lastDonation: data.lastDonation,
       isActive: lastDonationDate > threeMonthsAgo,
-      contact: session.user.phone
+      contact: session.user.phone,
     };
 
     // Find user and check if donor profile already exists
     const user = await User.findById(session.user.id);
     if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     // Ensure the donors array exists for this user
@@ -87,16 +76,18 @@ export async function POST(req: Request) {
     }
 
     // Check if donor already exists with same blood group and location
-    const existingDonor = (user.donors || []).find((donor: any) => 
-      donor.bloodGroup === data.bloodGroup && 
-      donor.province === data.province && 
-      donor.district === data.district
+    const existingDonor = (user.donors || []).find(
+      (donor: any) =>
+        donor.bloodGroup === data.bloodGroup &&
+        donor.province === data.province &&
+        donor.district === data.district
     );
 
     if (existingDonor) {
       return NextResponse.json(
-        { 
-          error: "You have already registered as a donor with this blood group in this location. Please choose a different location or blood group." 
+        {
+          error:
+            "You have already registered as a donor with this blood group in this location. Please choose a different location or blood group.",
         },
         { status: 400 }
       );
@@ -107,16 +98,13 @@ export async function POST(req: Request) {
     await user.save();
 
     // No need to re-fetch, we already have the donorProfileId
-
-    console.log("🔔 [DONORS API] Creating notification...");
     await Notification.create({
-      message: `New donor registered: ${user.name} ${user.lastName || ''}`.trim(),
+      message: `New donor registered: ${user.name} ${
+        user.lastName || ""
+      }`.trim(),
       userId: user._id,
       donorProfileId: donorProfileId,
     });
-    console.log("✅ [DONORS API] Notification created successfully");
-
-    console.log("🎉 [DONORS API] Registration completed successfully");
     return NextResponse.json({
       message: "Donor registered successfully",
       donor: {
@@ -134,40 +122,48 @@ export async function POST(req: Request) {
       code: error.code,
       name: error.name,
     });
-    
+
     // Handle duplicate key error (same user, blood group, and location)
     if (error.code === 11000) {
-      return NextResponse.json({ 
-        error: "You have already registered as a donor with this blood group in this location. Please choose a different location or blood group, or contact support if you need to update your existing registration." 
-      }, { status: 409 });
+      return NextResponse.json(
+        {
+          error:
+            "You have already registered as a donor with this blood group in this location. Please choose a different location or blood group, or contact support if you need to update your existing registration.",
+        },
+        { status: 409 }
+      );
     }
-    
+
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
 export async function GET() {
   await connectDB();
-  const users = await User.find({ donors: { $exists: true, $not: { $size: 0 } } });
-  
+  const users = await User.find({
+    donors: { $exists: true, $not: { $size: 0 } },
+  });
+
   // Transform the data to match the expected format
-  const donors = users.flatMap(user => 
-    user.donors.map((donor:any) => ({
-      _id: donor._id,
-      name: user.name,
-      lastName: user.lastName,
-      email: user.email,
-      contact: donor.contact || user.phone,
-      bloodGroup: donor.bloodGroup,
-      country: donor.country,
-      province: donor.province,
-      district: donor.district,
-      lastDonation: donor.lastDonation,
-      isActive: donor.isActive,
-      createdAt: donor.createdAt,
-      updatedAt: donor.updatedAt
-    }))
-  ).sort((a, b) => b.createdAt - a.createdAt);
+  const donors = users
+    .flatMap((user) =>
+      user.donors.map((donor: any) => ({
+        _id: donor._id,
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        contact: donor.contact || user.phone,
+        bloodGroup: donor.bloodGroup,
+        country: donor.country,
+        province: donor.province,
+        district: donor.district,
+        lastDonation: donor.lastDonation,
+        isActive: donor.isActive,
+        createdAt: donor.createdAt,
+        updatedAt: donor.updatedAt,
+      }))
+    )
+    .sort((a, b) => b.createdAt - a.createdAt);
 
   return NextResponse.json({ donors });
 }

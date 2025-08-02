@@ -34,8 +34,6 @@ const ChangeStep = ({
       setStep(step + 1);
       setLoading(false);
     } else if (step === 2) {
-      console.log("When submitting the form the form data is :", formData);
-
       // Register the donor
       try {
         const res = await fetch("/api/donors", {
@@ -48,14 +46,14 @@ const ChangeStep = ({
           const result = await res.json();
 
           setSuccess?.("Registration completed successfully! Redirecting...");
-          
+
           // Keep loading state active during navigation
           // Don't set loading to false here - let the redirect happen
           // The loading state will be cleared when the component unmounts
-          
+
           // Small delay to show success message before redirect
           setTimeout(() => {
-          router.replace("/dashboard");
+            router.replace("/dashboard");
           }, 1500);
         } else {
           const errorData = await res.json();
@@ -79,7 +77,6 @@ const ChangeStep = ({
           type="button"
           variant="outline"
           onClick={() => {
-            console.log("⬅️ [CHANGE STEP] Going back to step:", step - 1);
             setStep(step - 1);
           }}
           disabled={loading}

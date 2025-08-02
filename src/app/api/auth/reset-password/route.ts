@@ -42,15 +42,13 @@ export async function POST(req: NextRequest) {
     // Remove OTP entry after reset
     await Otp.deleteOne({ email: cleanEmail });
 
-    console.log(`Password reset successful for user: ${cleanEmail}`);
-
     return NextResponse.json({ 
       success: true,
       message: "Password reset successfully"
     });
 
   } catch (error: any) {
-    console.error("Password reset error:", error);
+    console.error("Reset password error:", error);
     return NextResponse.json({ 
       success: false,
       error: "Failed to reset password. Please try again." 

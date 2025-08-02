@@ -186,7 +186,6 @@ export default function ForgetPassword() {
       const result = await res.json();
 
       if (res.ok && result.success) {
-        console.log("Password reset:", result);
         setSuccess("Password reset successfully! Redirecting to login...");
         setLoading(true);
         setTimeout(() => {
@@ -196,7 +195,6 @@ export default function ForgetPassword() {
         setError("Password reset failed: " + result.error);
       }
     } catch (error) {
-      console.error("Password reset error:", error);
       setError("Failed to reset password. Please try again.");
     } finally {
       setLoading(false);

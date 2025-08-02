@@ -70,7 +70,6 @@ const RenderPersonalInfoStep: React.FC<RenderPersonalInfoStepProps> = ({
                   mode="single"
                   selected={formData.lastDonation || undefined}
                   onSelect={(date) => {
-                    console.log("📅 [PERSONAL INFO STEP] Date selected:", date);
                     handleFieldChange("lastDonation", date || null);
                   }}
                   disabled={(date) => date > new Date()}

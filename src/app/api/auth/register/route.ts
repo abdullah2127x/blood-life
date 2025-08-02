@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
 
   // Check OTP verification in MongoDB
   const entry = await Otp.findOne({ email: cleanEmail });
-  console.log("[REGISTER] Email:", cleanEmail, "OTP entry:", entry);
   if (!entry || !entry.verified) {
     return NextResponse.json({ error: "Email not verified by OTP" }, { status: 403 });
   }

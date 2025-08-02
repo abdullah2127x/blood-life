@@ -22,7 +22,6 @@ interface DonorResponse {
 export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }) {
-  console.log("the api is called and the params in the donors/id is route : ",params.id);
   if (!params?.id) {
     return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
   }
@@ -59,7 +58,6 @@ export async function GET(
       province: donorDonation.province,
       country: donorDonation.country,
     };
-    console.log("the donor in the donors/id is route : ",donor);
     return NextResponse.json<{ donor: DonorResponse }>({ donor });
   } catch (error: any) {
     console.error("Error fetching donor:", error);

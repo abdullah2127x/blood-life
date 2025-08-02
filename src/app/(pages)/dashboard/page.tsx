@@ -66,7 +66,7 @@ const DashboardPage = () => {
         // Fetch notifications
         const notificationRes = await fetch("/api/notifications");
         if (!notificationRes.ok) {
-          console.warn("Failed to fetch notifications");
+          throw new Error("Failed to fetch notifications");
         } else {
           const notificationData = await notificationRes.json();
           if (notificationData.notifications) {
@@ -94,79 +94,6 @@ const DashboardPage = () => {
   const handleEditProfile = () => {
     setProfileModalOpen(true);
   };
-
-  // const handleDonorUpdate = () => {
-  //   // Refresh donor data after update
-  //   const fetchData = async () => {
-  //     try {
-  //       setError("");
-
-  //       // Fetch donor profiles
-  //       const donorRes = await fetch("/api/donors/me");
-  //       if (!donorRes.ok) {
-  //         throw new Error("Failed to fetch donor profiles");
-  //       }
-  //       const donorData = await donorRes.json();
-  //       if (donorData.success) {
-  //         setDonorProfiles(donorData.donors);
-  //       }
-
-  //       // Fetch notifications
-  //       const notificationRes = await fetch("/api/notifications");
-  //       if (!notificationRes.ok) {
-  //         console.warn("Failed to fetch notifications");
-  //       } else {
-  //         const notificationData = await notificationRes.json();
-  //         if (notificationData.notifications) {
-  //           setNotifications(notificationData.notifications);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to fetch data:", error);
-  //       setError("Failed to load dashboard data. Please refresh the page.");
-  //     }
-  //   };
-
-  //   fetchData();
-  // };
-
-  // const handleProfileUpdate = async () => {
-  //   // Simple session update
-  //   await update();
-
-  //   // Refresh donor data
-  //   const fetchData = async () => {
-  //     try {
-  //       setError("");
-
-  //       // Fetch donor profiles
-  //       const donorRes = await fetch("/api/donors/me");
-  //       if (!donorRes.ok) {
-  //         throw new Error("Failed to fetch donor profiles");
-  //       }
-  //       const donorData = await donorRes.json();
-  //       if (donorData.success) {
-  //         setDonorProfiles(donorData.donors);
-  //       }
-
-  //       // Fetch notifications
-  //       const notificationRes = await fetch("/api/notifications");
-  //       if (!notificationRes.ok) {
-  //         console.warn("Failed to fetch notifications");
-  //       } else {
-  //         const notificationData = await notificationRes.json();
-  //         if (notificationData.notifications) {
-  //           setNotifications(notificationData.notifications);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to fetch data:", error);
-  //       setError("Failed to load dashboard data. Please refresh the page.");
-  //     }
-  //   };
-
-  //   fetchData();
-  // };
 
   const handleDeleteDonor = async (donorId: string) => {
     const result = await Swal.fire({
@@ -264,7 +191,7 @@ const DashboardPage = () => {
             Manage your blood donation profiles and track your impact
           </p>
         </div>
-        <Button 
+        <Button
           onClick={() => router.push("/register")}
           className="flex items-center gap-2 bg-normalRed hover:bg-darkRed"
         >
@@ -274,7 +201,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Profile Header */}
-      <ProfileHeader 
+      <ProfileHeader
         name={`${session.user.name} ${session.user.lastName || ""}`}
         email={session.user.email || ""}
         onEditProfile={handleEditProfile}
@@ -360,8 +287,9 @@ const DashboardPage = () => {
               Start Your Blood Donation Journey
             </h2>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              You haven&apos;t registered as a blood donor yet. Join our community of
-              lifesavers and make a difference in someone&apos;s life today.
+              You haven&apos;t registered as a blood donor yet. Join our
+              community of lifesavers and make a difference in someone&apos;s
+              life today.
             </p>
             <div className="space-y-4">
               <Button
@@ -370,8 +298,8 @@ const DashboardPage = () => {
                 size="lg"
               >
                 <UserPlus className="w-5 h-5 mr-2" />
-            Register as Donor
-          </Button>
+                Register as Donor
+              </Button>
               <div className="text-sm text-gray-500">
                 <p>✓ Quick and easy registration</p>
                 <p>✓ Help save lives in your community</p>
@@ -388,19 +316,19 @@ const DashboardPage = () => {
               Your Donor Profiles
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {donorProfiles.map((donor) => (
-            <ProfileStats
+              {donorProfiles.map((donor) => (
+                <ProfileStats
                   key={donor._id || donor.id}
                   _id={donor._id}
                   id={donor.id}
-              bloodGroup={donor.bloodGroup}
-              lastDonation={donor.lastDonation}
+                  bloodGroup={donor.bloodGroup}
+                  lastDonation={donor.lastDonation}
                   location={`${donor.district}, ${donor.province}`}
-              contact={donor.contact}
-              isActive={donor.isActive}
+                  contact={donor.contact}
+                  isActive={donor.isActive}
                   onDelete={handleDeleteDonor}
-            />
-          ))}
+                />
+              ))}
             </div>
           </div>
 

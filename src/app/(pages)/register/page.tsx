@@ -45,7 +45,6 @@ export default function DonorRegistration() {
   const handleLocationChange = (field: string, value: any) => {
     setFormData((prev: DonorFormData) => {
       const newData = { ...prev, [field]: value };
-      console.log("Updated form data in page register:", newData);
       return newData;
     });
   };

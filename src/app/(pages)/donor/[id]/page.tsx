@@ -18,12 +18,10 @@ export default function DonorDetailPage() {
     const fetchDonorDetails = async () => {
       try {
         const res = await fetch(`/api/donors/${params?.id}`);
-        console.log("the res in the donors/id is page : ",res);
         if (!res.ok) {
           throw new Error('Failed to fetch donor details');
         }
         const data = await res.json();
-        console.log("the data in the donors/id is page : ",data);
         setDonor(data.donor);
       } catch (err) {
         setError('Failed to load donor details');
