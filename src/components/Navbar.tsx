@@ -6,7 +6,7 @@ import { Menu, X, Bell, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useSession, signOut } from "next-auth/react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -15,6 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -40,7 +41,9 @@ export default function Navbar() {
         .then((res) => res.json())
         .then((data) => {
           setNotifications(data.notifications);
-          setUnreadCount(data?.notifications?.filter((n: any) => !n.read).length);
+          setUnreadCount(
+            data?.notifications?.filter((n: any) => !n.read).length
+          );
         });
     }
   }, [session]);
@@ -59,20 +62,20 @@ export default function Navbar() {
 
   const handleSignOut = async () => {
     const result = await Swal.fire({
-      title: 'Are you sure you want to sign out?',
+      title: "Are you sure you want to sign out?",
       text: "You'll need to sign in again to access your account.",
-      icon: 'question',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#dc2626',
-      cancelButtonColor: '#6b7280',
-      confirmButtonText: 'Yes, sign out',
-      cancelButtonText: 'Cancel',
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, sign out",
+      cancelButtonText: "Cancel",
       reverseButtons: true,
       customClass: {
-        popup: 'rounded-lg',
-        confirmButton: 'rounded-md',
-        cancelButton: 'rounded-md'
-      }
+        popup: "rounded-lg",
+        confirmButton: "rounded-md",
+        cancelButton: "rounded-md",
+      },
     });
 
     if (result.isConfirmed) {
@@ -86,9 +89,9 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-full bg-normalRed flex items-center justify-center">
-                <span className="text-white font-bold text-xl">B</span>
+            <Link href="/" className="flex items-center gap-1">
+              <div className="w-8 relative  overflow-hidden h-8 rounded-full flex items-center justify-center">
+                <Image src="/logo.png" alt="BloodLife Logo" fill />
               </div>
               <span className="text-xl font-bold text-gray-900">BloodLife</span>
             </Link>
@@ -106,7 +109,7 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            
+
             {/* User Menu */}
             {session ? (
               <>
@@ -166,7 +169,9 @@ export default function Navbar() {
                   <Button variant="ghost">Sign In</Button>
                 </Link>
                 <Link href="/authentication/signup">
-                  <Button className="bg-normalRed hover:bg-darkRed">Sign Up</Button>
+                  <Button className="bg-normalRed hover:bg-darkRed">
+                    Sign Up
+                  </Button>
                 </Link>
               </div>
             )}
@@ -233,7 +238,7 @@ export default function Navbar() {
                   {item.name}
                 </Link>
               ))}
-              
+
               {session ? (
                 <>
                   <Link

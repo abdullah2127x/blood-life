@@ -10,6 +10,7 @@ import {
   MapPin,
   Heart,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -19,9 +20,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Organization Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-full bg-normalRed flex items-center justify-center">
-                <span className="text-white font-bold text-xl">B</span>
+            <div className="flex items-center gap-1">
+              <div className="w-8 relative  overflow-hidden h-8 rounded-full flex items-center justify-center">
+                <Image src="/logo.png" alt="BloodLife Logo" fill />
               </div>
               <span className="text-xl font-bold text-white">BloodLife</span>
             </div>
