@@ -4,7 +4,7 @@ import { connectDB } from "@/lib/connectDB";
 import User from "@/models/User";
 import Notification from "@/models/Notification";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import mongoose from "mongoose";
 
 

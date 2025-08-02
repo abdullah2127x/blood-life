@@ -163,9 +163,9 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="italic text-secondaryColor">
-                  "Donating blood through this platform was so easy and
+                  Donating blood through this platform was so easy and
                   rewarding. I know my donation helped save lives in my own
-                  community."
+                  community.
                 </p>
               </CardContent>
             </Card>
@@ -181,9 +181,9 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="italic text-secondaryColor">
-                  "I found a matching donor within hours when my family needed
+                  I found a matching donor within hours when my family needed
                   blood urgently. The team was supportive and the process was
-                  smooth."
+                  smooth.
                 </p>
               </CardContent>
             </Card>

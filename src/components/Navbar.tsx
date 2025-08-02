@@ -40,7 +40,7 @@ export default function Navbar() {
         .then((res) => res.json())
         .then((data) => {
           setNotifications(data.notifications);
-          setUnreadCount(data.notifications.filter((n: any) => !n.read).length);
+          setUnreadCount(data?.notifications?.filter((n: any) => !n.read).length);
         });
     }
   }, [session]);
@@ -128,7 +128,7 @@ export default function Navbar() {
                     {notifications?.length === 0 && (
                       <DropdownMenuItem>No notifications</DropdownMenuItem>
                     )}
-                    {notifications.map((n: any) => (
+                    {notifications?.map((n: any) => (
                       <DropdownMenuItem
                         key={n._id}
                         onClick={() => markAsRead(n._id)}
@@ -189,10 +189,10 @@ export default function Navbar() {
                 <DropdownMenuContent align="end" className="w-80">
                   <DropdownMenuLabel>Notifications</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  {notifications.length === 0 && (
+                  {notifications?.length === 0 && (
                     <DropdownMenuItem>No notifications</DropdownMenuItem>
                   )}
-                  {notifications.map((n: any) => (
+                  {notifications?.map((n: any) => (
                     <DropdownMenuItem
                       key={n._id}
                       onClick={() => markAsRead(n._id)}

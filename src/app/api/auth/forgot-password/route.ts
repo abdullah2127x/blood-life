@@ -30,8 +30,8 @@ export async function POST(req: NextRequest) {
       { upsert: true, new: true }
     );
     
-    // await sendOTPEmail(cleanEmail, code); // Uncomment when email is configured
-    console.log("[FORGOT PASSWORD] OTP generated for:", cleanEmail, "Code:", code);
+    await sendOTPEmail(cleanEmail, code); // Uncomment when email is configured
+    // console.log("[FORGOT PASSWORD] OTP generated for:", cleanEmail, "Code:", code);
     
     return NextResponse.json({ success: true });
   } catch (error: any) {

@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/connectDB";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import User from "@/models/User";
+export const dynamic = "force-dynamic";
+
 
 export async function GET() {
   try {
@@ -25,7 +27,7 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      donors: (user.donors || []).map((donor) => ({
+      donors: (user.donors || []).map((donor: any) => ({
         _id: donor._id.toString(),
         id: donor._id.toString(),
         bloodGroup: donor.bloodGroup,

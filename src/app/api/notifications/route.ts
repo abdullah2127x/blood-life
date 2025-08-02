@@ -14,11 +14,11 @@ export async function GET() {
       .lean();
 
     // Then, fetch all unique users in one query
-    const userIds = [...new Set(notifications.map(n => n.userId))];
+    const userIds = Array.from(new Set(notifications.map(n => n.userId)));
     const users = await User.find({ _id: { $in: userIds } }).lean();
 
     // Create a map of users for quick lookup
-    const userMap = new Map(users.map(user => [user._id.toString(), user]));
+    const userMap = new Map(users.map(user => [(user as { _id: any })._id.toString(), user]));
 
     // Transform notifications to include user and donor profile data
     const transformedNotifications = notifications.map(notification => {
@@ -31,7 +31,7 @@ export async function GET() {
       // If this is a donor-related notification
       if (notification.donorProfileId) {
         const donorProfile = user.donors?.find(
-          (d: IDonorProfile) => d._id.toString() === notification.donorProfileId.toString()
+          (d: any) => d._id.toString() === notification.donorProfileId.toString()
         );
 
         if (donorProfile) {

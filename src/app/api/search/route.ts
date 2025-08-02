@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     // Transform and flatten donor data
     const formattedDonors = users.flatMap(user => 
       user.donors
-        .filter(donor => {
+        .filter((donor:any) => {
           // Apply filters at the donor level
           if (data.bloodGroup && donor.bloodGroup !== data.bloodGroup) return false;
           if (data.district && donor.district !== data.district) return false;
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
           if (data.activeOnly && !donor.isActive) return false;
           return true;
         })
-        .map(donor => ({
+        .map((donor:any) => ({
           id: donor._id.toString(),
           name: `${user.name} ${user.lastName || ''}`.trim(),
           bloodGroup: donor.bloodGroup,

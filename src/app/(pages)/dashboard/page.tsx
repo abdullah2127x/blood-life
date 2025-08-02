@@ -95,78 +95,78 @@ const DashboardPage = () => {
     setProfileModalOpen(true);
   };
 
-  const handleDonorUpdate = () => {
-    // Refresh donor data after update
-    const fetchData = async () => {
-      try {
-        setError("");
+  // const handleDonorUpdate = () => {
+  //   // Refresh donor data after update
+  //   const fetchData = async () => {
+  //     try {
+  //       setError("");
 
-        // Fetch donor profiles
-        const donorRes = await fetch("/api/donors/me");
-        if (!donorRes.ok) {
-          throw new Error("Failed to fetch donor profiles");
-        }
-        const donorData = await donorRes.json();
-        if (donorData.success) {
-          setDonorProfiles(donorData.donors);
-        }
+  //       // Fetch donor profiles
+  //       const donorRes = await fetch("/api/donors/me");
+  //       if (!donorRes.ok) {
+  //         throw new Error("Failed to fetch donor profiles");
+  //       }
+  //       const donorData = await donorRes.json();
+  //       if (donorData.success) {
+  //         setDonorProfiles(donorData.donors);
+  //       }
 
-        // Fetch notifications
-        const notificationRes = await fetch("/api/notifications");
-        if (!notificationRes.ok) {
-          console.warn("Failed to fetch notifications");
-        } else {
-          const notificationData = await notificationRes.json();
-          if (notificationData.notifications) {
-            setNotifications(notificationData.notifications);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-        setError("Failed to load dashboard data. Please refresh the page.");
-      }
-    };
+  //       // Fetch notifications
+  //       const notificationRes = await fetch("/api/notifications");
+  //       if (!notificationRes.ok) {
+  //         console.warn("Failed to fetch notifications");
+  //       } else {
+  //         const notificationData = await notificationRes.json();
+  //         if (notificationData.notifications) {
+  //           setNotifications(notificationData.notifications);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch data:", error);
+  //       setError("Failed to load dashboard data. Please refresh the page.");
+  //     }
+  //   };
 
-    fetchData();
-  };
+  //   fetchData();
+  // };
 
-  const handleProfileUpdate = async () => {
-    // Simple session update
-    await update();
+  // const handleProfileUpdate = async () => {
+  //   // Simple session update
+  //   await update();
 
-    // Refresh donor data
-    const fetchData = async () => {
-      try {
-        setError("");
+  //   // Refresh donor data
+  //   const fetchData = async () => {
+  //     try {
+  //       setError("");
 
-        // Fetch donor profiles
-        const donorRes = await fetch("/api/donors/me");
-        if (!donorRes.ok) {
-          throw new Error("Failed to fetch donor profiles");
-        }
-        const donorData = await donorRes.json();
-        if (donorData.success) {
-          setDonorProfiles(donorData.donors);
-        }
+  //       // Fetch donor profiles
+  //       const donorRes = await fetch("/api/donors/me");
+  //       if (!donorRes.ok) {
+  //         throw new Error("Failed to fetch donor profiles");
+  //       }
+  //       const donorData = await donorRes.json();
+  //       if (donorData.success) {
+  //         setDonorProfiles(donorData.donors);
+  //       }
 
-        // Fetch notifications
-        const notificationRes = await fetch("/api/notifications");
-        if (!notificationRes.ok) {
-          console.warn("Failed to fetch notifications");
-        } else {
-          const notificationData = await notificationRes.json();
-          if (notificationData.notifications) {
-            setNotifications(notificationData.notifications);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-        setError("Failed to load dashboard data. Please refresh the page.");
-      }
-    };
+  //       // Fetch notifications
+  //       const notificationRes = await fetch("/api/notifications");
+  //       if (!notificationRes.ok) {
+  //         console.warn("Failed to fetch notifications");
+  //       } else {
+  //         const notificationData = await notificationRes.json();
+  //         if (notificationData.notifications) {
+  //           setNotifications(notificationData.notifications);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch data:", error);
+  //       setError("Failed to load dashboard data. Please refresh the page.");
+  //     }
+  //   };
 
-    fetchData();
-  };
+  //   fetchData();
+  // };
 
   const handleDeleteDonor = async (donorId: string) => {
     const result = await Swal.fire({
@@ -360,8 +360,8 @@ const DashboardPage = () => {
               Start Your Blood Donation Journey
             </h2>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              You haven't registered as a blood donor yet. Join our community of
-              lifesavers and make a difference in someone's life today.
+              You haven&apos;t registered as a blood donor yet. Join our community of
+              lifesavers and make a difference in someone&apos;s life today.
             </p>
             <div className="space-y-4">
               <Button

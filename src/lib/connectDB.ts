@@ -4,6 +4,8 @@ const MONGO_URI = process.env.MONGO_URI as string;
 
 export async function connectDB() {
   console.log("🔌 [DATABASE] Attempting to connect to MongoDB...");
+  console.log("🧪 [DEBUG] MONGO_URI loaded as:", MONGO_URI);
+
   console.log("🔧 [DATABASE] Connection state:", {
     readyState: mongoose.connection.readyState,
     hasUri: !!MONGO_URI,
