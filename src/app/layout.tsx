@@ -31,7 +31,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </AuthProvider>
-        {/* <Script src="/liquid-glass.js" /> */}
+        <Script src="/liquid-glass.jsx" />
       </body>
     </html>
   );
